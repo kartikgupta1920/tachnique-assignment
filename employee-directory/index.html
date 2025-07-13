@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Employee Directory</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <header>
+        <div class="header-content container">
+            <h1>Employee Directory</h1>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search by name or email" />
+                <button onclick="applySearch()">Filter</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="controls">
+            <div>
+                Sort:
+                <select id="sortSelect" onchange="sortEmployees()">
+                    <option value="">--Select--</option>
+                    <option value="firstName">First Name</option>
+                    <option value="department">Department</option>
+                </select>
+                Show:
+                <select id="paginationSelect" onchange="changePageSize()">
+                    <option value="10">3</option>
+                    <option value="25">6</option>
+                    <option value="50">9</option>
+                </select>
+            </div>
+            <button id="addEmployeeBtn" onclick="location.href='add-edit.html'">Add Employee</button>
+        </div>
+
+        <div class="filter-wrapper">
+            <form class="filter-form">
+                <h3>Filter Employees</h3>
+                <input type="text" id="filterFirstName" placeholder="First Name" />
+                <input type="text" id="filterDepartment" placeholder="Department" />
+                <input type="text" id="filterRole" placeholder="Role" />
+                <button type="button" onclick="applyFilter()">Apply</button>
+                <button type="reset" onclick="resetFilter()">Reset</button>
+            </form>
+        </div>
+
+        <main id="employeeList" class="employee-list container"></main>
+
+        <!-- Pagination Info + Buttons -->
+        <div class="container" style="margin: 20px 0; text-align: center;">
+            <div id="pageInfo" style="margin-bottom: 10px; font-weight: bold;"></div>
+            <div id="pagination"></div>
+        </div>
+
+        <footer>
+            <p>© 2025 Employee Directory App. All rights reserved.</p>
+        </footer>
+
+
+        <script src="data.js"></script>
+        <script src="utils.js"></script>
+        <script src="script.js"></script>
+</body>
+
+</html>

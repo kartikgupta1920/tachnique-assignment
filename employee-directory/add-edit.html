@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Employee</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="form-container add-employee-form">
+
+    <h2>Add Employee</h2>
+    <form id="employeeForm" onsubmit="return submitForm(event)">
+      <input type="text" id="firstName" placeholder="First name" required />
+      <input type="text" id="lastName" placeholder="Last name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <select id="department" required>
+        <option value="">Department</option>
+        <option value="HR">HR</option>
+        <option value="IT">IT</option>
+        <option value="Finance">Finance</option>
+      </select>
+      <select id="role" required>
+        <option value="">Role</option>
+        <option value="Manager">Manager</option>
+        <option value="Developer">Developer</option>
+        <option value="Analyst">Analyst</option>
+      </select>
+      <div class="form-buttons">
+        <button type="button" onclick="window.history.back()">Cancel</button>
+        <button type="submit">Add</button>
+      </div>
+    </form>
+  </div>
+
+ <script src="data.js"></script>
+<script>
+  let employees = [];
+
+  // Load existing employees
+  window.onload = () => {
+    const stored = localStorage.getItem("employees");
+    if (stored) {
+      employees = JSON.parse(stored);
+    }
+
+    const editId = localStorage.getItem("editId");
+    if (editId) {
+      const employee = employees.find(e => e.id == editId);
+      if (employee) {
+        // Prefill form for editing
+        document.getElementById("firstName").value = employee.firstName;
+        document.getElementById("lastName").value = employee.lastName;
+        document.getElementById("email").value = employee.email;
+        document.getElementById("department").value = employee.department;
+        document.getElementById("role").value = employee.role;
+
+        // Change button label
+        document.querySelector("form button[type='submit']").textContent = "Update";
+        document.querySelector("h2").textContent = "Edit Employee";
+      }
+    }
+  };
+
+  function submitForm(e) {
+    e.preventDefault();
+
+    const employee = {
+      id: Date.now(),
+      firstName: document.getElementById('firstName').value.trim(),
+      lastName: document.getElementById('lastName').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      department: document.getElementById('department').value,
+      role: document.getElementById('role').value,
+    };
+
+    if (!employee.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      alert("Invalid email");
+      return false;
+    }
+
+    const editId = localStorage.getItem("editId");
+
+    if (editId) {
+      // Update existing
+      const index = employees.findIndex(e => e.id == editId);
+      if (index !== -1) {
+        employee.id = parseInt(editId); // retain original ID
+        employees[index] = employee;
+      }
+      localStorage.removeItem("editId"); // clear edit mode
+    } else {
+      // Add new
+      employees.push(employee);
+    }
+
+    localStorage.setItem("employees", JSON.stringify(employees));
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>

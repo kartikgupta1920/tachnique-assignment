@@ -6,7 +6,7 @@ A fully responsive and interactive **Employee Directory Web Interface** built us
 
 ## 🚀 Live Preview
 
-**[Link to Deployment (optional)](https://your-hosted-url.com)**  
+**[Link to Deployment (optional)](https://tachnique-assignment-9mbb.vercel.app/)**  
 _(or open `index.html` directly in your browser)_
 
 ---
@@ -85,7 +85,7 @@ Edit
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/employee-directory.git
+   git clone https://github.com/kartikgupta1920/tachnique-assignment.git
    cd employee-directory
 Open index.html in any modern browser.
 
